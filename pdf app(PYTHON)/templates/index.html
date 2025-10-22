@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Local PDF Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>📄 Local PDF Utility</h1>
+
+    <section>
+        <h2>Merge PDFs</h2>
+        <form action="/merge" method="post" enctype="multipart/form-data">
+            <input type="file" name="pdfs" multiple accept=".pdf" required>
+            <input type="submit" value="Merge">
+        </form>
+    </section>
+
+    <section>
+        <h2>Split PDF</h2>
+        <form action="/split" method="post" enctype="multipart/form-data">
+            <input type="file" name="pdf" accept=".pdf" required><br>
+            <input type="text" name="pages" placeholder="e.g. 1,3,5-7" required>
+            <input type="submit" value="Split">
+        </form>
+    </section>
+
+    <section>
+        <h2>Convert PDF to Word</h2>
+        <form action="/pdf_to_word" method="post" enctype="multipart/form-data">
+            <input type="file" name="pdf" accept=".pdf" required>
+            <input type="submit" value="Convert">
+        </form>
+    </section>
+
+    <section>
+        <h2>Convert Word to PDF</h2>
+        {% if docx2pdf_available %}
+        <form action="/word_to_pdf" method="post" enctype="multipart/form-data">
+            <input type="file" name="word" accept=".docx" required>
+            <input type="submit" value="Convert">
+        </form>
+        {% else %}
+        <p class="warning">⚠ Word-to-PDF conversion not available. Requires Windows/Mac with MS Word installed.</p>
+        {% endif %}
+    </section>
+</body>
+</html>
